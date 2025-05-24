@@ -10,6 +10,7 @@ class Modelo extends Model
     /** @use HasFactory<\Database\Factories\ModeloFactory> */
     use HasFactory;
     protected $fillable = [
-        'nome'
+        'nome',
+        'marca', // Adicionando a marca_id
     ];
 }
