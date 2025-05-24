@@ -12,10 +12,12 @@ class MarcaController extends Controller
         $marcas = Marca::all();
         return view('marcas.index', compact('marcas'));
     }
+    
     public function create()
     {
         return view('marcas.create');
     }
+
     public function store(Request $request)
     {
         // 1) Regras no primeiro parâmetro
