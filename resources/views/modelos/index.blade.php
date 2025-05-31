@@ -113,7 +113,7 @@
 
  @endsection   
 
-    @section('scripts-bottom')
+    @section('bottom-script')
     <script>
         $(function() {
             const modalModelo = new bootstrap.Modal($('#modalModelo')[0]);
