@@ -27,7 +27,7 @@ class MarcaController extends Controller
                 'required',
                 'string',
                 'max:25',
-                'unique:marcas,nome',
+                'unique:marcas,nome', // Verifica se o nome já existe na tabela marcas
                 // 'not_regex:/\d/',            // não pode conter nenhum dígito
             ],
         ], [

@@ -12,5 +12,6 @@ class Marca extends Model
 
     protected $fillable = [
         'nome',
+        'marca'
     ];
 }
