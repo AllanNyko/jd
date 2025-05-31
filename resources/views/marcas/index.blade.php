@@ -7,6 +7,7 @@
 <body>
     <header>
         @include('layouts.nav');
+        @include('layouts.navbar')
     </header>
     <div class="container py-5">
 

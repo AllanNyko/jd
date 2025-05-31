@@ -11,36 +11,15 @@
 
 <body>
     <header>
-        <nav>
-            <div class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Celulares</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page"
-                                    href="{{ route('modelos.index') }}">Modelos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('marcas.index') }}">Marcas</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+   @include('layouts.navbar')
     </header>
     <div class="container py-5">
 
         {{-- Flash de sucesso --}}
         @if (session('success'))
-            <div class="alert alert-success text-center col-md-8 mx-auto">
-                {{ session('success') }}
-            </div>
+        <div class="alert alert-success text-center col-md-8 mx-auto">
+            {{ session('success') }}
+        </div>
         @endif
 
         {{-- Card com tabela e botão --}}
@@ -59,19 +38,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($modelos as $modelo)
+                        @foreach (($modelos ?? []) as $modelo)
+                            @if(is_object($modelo))
                             <tr>
-                                <td>{{ $modelo->id }}</td>
-                                <td>{{ $modelo->nome }}</td>
+                                <td>{{ $modelo->id ?? '' }}</td>
+                                <td>{{ $modelo->nome ?? '' }}</td>
                                 <td class="d-flex justify-content-center">
                                     <button class="btn btn-sm btn-warning btn-editar me-3"
-                                        data-route="{{ route('modelos.update', $modelo->id) }}"
-                                        data-nome="{{ $modelo->nome }}">Editar</button>
+                                        data-route="{{ isset($modelo->id) ? route('modelos.update', $modelo->id) : '#' }}"
+                                        data-nome="{{ $modelo->nome ?? '' }}">Editar</button>
                                     <button class="btn btn-sm btn-danger btn-excluir"
-                                        data-route="{{ route('modelos.destroy', $modelo->id) }}"
-                                        data-nome="{{ $modelo->nome }}">Excluir</button>
+                                        data-route="{{ isset($modelo->id) ? route('modelos.destroy', $modelo->id) : '#' }}"
+                                        data-nome="{{ $modelo->nome ?? '' }}">Excluir</button>
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -93,8 +74,10 @@
                         <label for="inputNome" class="form-label">Marca</label>
                         <select name="marca" id="marca" class="form-select @error('marca') is-invalid @enderror">
                             <option value="">Selecione uma marca</option>
-                            @foreach ($marcas as $marca)
-                                <option value="{{ $marca->id }}">{{ $marca->nome }}</option>
+                            @foreach (($marcas ?? []) as $marca)
+                                @if(is_object($marca))
+                                    <option value="{{ $marca->id ?? '' }}">{{ $marca->nome ?? '' }}</option>
+                                @endif
                             @endforeach
                         </select>
                         <br>
@@ -103,7 +86,7 @@
                             class="form-control @error('nome') is-invalid @enderror"
                             placeholder="Digite o nome do modelo" value="{{ old('nome') }}">
                         @error('nome')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
