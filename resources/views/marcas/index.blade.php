@@ -1,23 +1,18 @@
-@extends('layouts.head')
-@section('title_aba')
+@extends('layouts.app')
+
+@section('title')
     Marcas
 @endsection
 
-
-<body>
-    <header>
-        @include('layouts.nav');
-        @include('layouts.navbar')
-    </header>
+@section('content')
+  
     <div class="container py-5">
-
         {{-- Flash de sucesso --}}
         @if (session('success'))
             <div class="alert alert-success text-center col-md-8 mx-auto">
                 {{ session('success') }}
             </div>
         @endif
-
         {{-- Card com tabela e botão --}}
         <div class="card shadow-sm col-md-8 mx-auto">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -54,9 +49,7 @@
                 </table>
             </div>
         </div>
-
     </div>
-
     {{-- Modal de criação / edição --}}
     <div class="modal fade" id="modalMarca" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -84,7 +77,6 @@
             </form>
         </div>
     </div>
-
     {{-- Modal de confirmação de exclusão --}}
     <div class="modal fade" id="modalExcluir" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -105,16 +97,13 @@
             </form>
         </div>
     </div>
+@endsection
 
- @extends('layouts.footer')
- @section('footer')
+@section('bottom-script')
     <script>
         $(function() {
-            // inicializa os modais
             var modalMarca = new bootstrap.Modal($('#modalMarca')[0]);
             var modalExcluir = new bootstrap.Modal($('#modalExcluir')[0]);
-
-            // botao "Nova Marca"
             $('#btnNovaMarca').on('click', function() {
                 $('#modalMarcaLabel').text('Nova Marca');
                 $('#formMarca')
@@ -125,8 +114,6 @@
                     .removeClass('is-invalid');
                 modalMarca.show();
             });
-
-            // botão "Editar"
             $('.btn-editar').on('click', function() {
                 var route = $(this).data('route');
                 var nome = $(this).data('nome');
@@ -143,8 +130,6 @@
                     .removeClass('is-invalid');
                 modalMarca.show();
             });
-
-            // botão "Excluir"
             $('.btn-excluir').on('click', function() {
                 var route = $(this).data('route');
                 var nome = $(this).data('nome');
@@ -153,9 +138,6 @@
                     .text('Deseja realmente excluir a marca "' + nome + '"?');
                 modalExcluir.show();
             });
-
-            // reabre modal de criar/editar em caso de erro de validação
-
         });
     </script>
     @if ($errors->any())
@@ -163,5 +145,4 @@
             modalMarca.show();
         </script>
     @endif
-
-    @endsection
+@endsection

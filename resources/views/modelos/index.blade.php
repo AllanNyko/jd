@@ -1,18 +1,10 @@
-{{-- resources/views/marcas/index.blade.php --}}
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gerenciamento de Modelos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@section('title', 'Modelos')
 
-<body>
-    <header>
-   @include('layouts.navbar')
-    </header>
+
+@section('content')
+ 
     <div class="container py-5">
 
         {{-- Flash de sucesso --}}
@@ -39,20 +31,20 @@
                     </thead>
                     <tbody>
                         @foreach (($modelos ?? []) as $modelo)
-                            @if(is_object($modelo))
-                            <tr>
-                                <td>{{ $modelo->id ?? '' }}</td>
-                                <td>{{ $modelo->nome ?? '' }}</td>
-                                <td class="d-flex justify-content-center">
-                                    <button class="btn btn-sm btn-warning btn-editar me-3"
-                                        data-route="{{ isset($modelo->id) ? route('modelos.update', $modelo->id) : '#' }}"
-                                        data-nome="{{ $modelo->nome ?? '' }}">Editar</button>
-                                    <button class="btn btn-sm btn-danger btn-excluir"
-                                        data-route="{{ isset($modelo->id) ? route('modelos.destroy', $modelo->id) : '#' }}"
-                                        data-nome="{{ $modelo->nome ?? '' }}">Excluir</button>
-                                </td>
-                            </tr>
-                            @endif
+                        @if(is_object($modelo))
+                        <tr>
+                            <td>{{ $modelo->id ?? '' }}</td>
+                            <td>{{ $modelo->nome ?? '' }}</td>
+                            <td class="d-flex justify-content-center">
+                                <button class="btn btn-sm btn-warning btn-editar me-3"
+                                    data-route="{{ isset($modelo->id) ? route('modelos.update', $modelo->id) : '#' }}"
+                                    data-nome="{{ $modelo->nome ?? '' }}">Editar</button>
+                                <button class="btn btn-sm btn-danger btn-excluir"
+                                    data-route="{{ isset($modelo->id) ? route('modelos.destroy', $modelo->id) : '#' }}"
+                                    data-nome="{{ $modelo->nome ?? '' }}">Excluir</button>
+                            </td>
+                        </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -75,9 +67,9 @@
                         <select name="marca" id="marca" class="form-select @error('marca') is-invalid @enderror">
                             <option value="">Selecione uma marca</option>
                             @foreach (($marcas ?? []) as $marca)
-                                @if(is_object($marca))
-                                    <option value="{{ $marca->id ?? '' }}">{{ $marca->nome ?? '' }}</option>
-                                @endif
+                            @if(is_object($marca))
+                            <option value="{{ $marca->id ?? '' }}">{{ $marca->nome ?? '' }}</option>
+                            @endif
                             @endforeach
                         </select>
                         <br>
@@ -119,9 +111,9 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+ @endsection   
 
+    @section('scripts-bottom')
     <script>
         $(function() {
             const modalModelo = new bootstrap.Modal($('#modalModelo')[0]);
@@ -159,11 +151,9 @@
                 modalExcluir.show();
             });
 
-            @if ($errors->any())
-                modalModelo.show();
+            @if($errors-> any())
+            modalModelo.show();
             @endif
         });
     </script>
-</body>
-
-</html>
+    @endsection
