@@ -64,7 +64,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="inputNome" class="form-label">Marca</label>
-                        <select name="marca" id="marca" class="form-select @error('marca') is-invalid @enderror">
+                        <select name="marca" id="marca"  class="form-select @error('marca') is-invalid @enderror">
                             <option value="">Selecione uma marca</option>
                             @foreach (($marcas ?? []) as $marca)
                             @if(is_object($marca))
@@ -74,7 +74,7 @@
                         </select>
                         <br>
                         <label for="inputNome" class="form-label">Modelo</label>
-                        <input type="text" id="inputNome" name="nome"
+                        <input type="text" id="inputNome" name="nome" required
                             class="form-control @error('nome') is-invalid @enderror"
                             placeholder="Digite o nome do modelo" value="{{ old('nome') }}">
                         @error('nome')

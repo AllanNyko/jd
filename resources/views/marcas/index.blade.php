@@ -104,16 +104,16 @@
         $(function() {
             var modalMarca = new bootstrap.Modal($('#modalMarca')[0]);
             var modalExcluir = new bootstrap.Modal($('#modalExcluir')[0]);
+
             $('#btnNovaMarca').on('click', function() {
                 $('#modalMarcaLabel').text('Nova Marca');
                 $('#formMarca')
                     .attr('action', '{{ route('marcas.store') }}')
                     .find('input[name="_method"]').remove();
-                $('#inputNome')
-                    .val('')
-                    .removeClass('is-invalid');
+                $('#inputNome').val('').removeClass('is-invalid');
                 modalMarca.show();
             });
+
             $('.btn-editar').on('click', function() {
                 var route = $(this).data('route');
                 var nome = $(this).data('nome');
@@ -125,24 +125,21 @@
                             return '<input type="hidden" name="_method" value="PUT">';
                         }
                     });
-                $('#inputNome')
-                    .val(nome)
-                    .removeClass('is-invalid');
+                $('#inputNome').val(nome).removeClass('is-invalid');
                 modalMarca.show();
             });
+
             $('.btn-excluir').on('click', function() {
                 var route = $(this).data('route');
                 var nome = $(this).data('nome');
                 $('#formExcluir').attr('action', route);
-                $('#mensagemExcluir')
-                    .text('Deseja realmente excluir a marca "' + nome + '"?');
+                $('#mensagemExcluir').text('Deseja realmente excluir a marca "' + nome + '"?');
                 modalExcluir.show();
             });
+
+            @if ($errors->any())
+                modalMarca.show();
+            @endif
         });
     </script>
-    @if ($errors->any())
-        <script>
-            modalMarca.show();
-        </script>
-    @endif
 @endsection
