@@ -64,7 +64,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="inputNome" class="form-label">Marca</label>
-                        <select name="marca" id="marca"  class="form-select @error('marca') is-invalid @enderror">
+                        <select name="marca_id" id="marca_id" class="form-select @error('marca_id') is-invalid @enderror">
                             <option value="">Selecione uma marca</option>
                             @foreach (($marcas ?? []) as $marca)
                             @if(is_object($marca))

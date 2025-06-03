@@ -12,6 +12,11 @@ class Marca extends Model
 
     protected $fillable = [
         'nome',
-        'marca'
     ];
+
+    // Uma Marca tem muitos Modelos
+    public function modelos()
+    {
+        return $this->hasMany(Modelo::class);
+    }
 }

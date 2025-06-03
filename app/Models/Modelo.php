@@ -9,8 +9,15 @@ class Modelo extends Model
 {
     /** @use HasFactory<\Database\Factories\ModeloFactory> */
     use HasFactory;
+
     protected $fillable = [
         'nome',
-        'marca', // Adicionando a marca_id
+        'marca_id', // Corrija para marca_id
     ];
+
+    // Um Modelo pertence a uma Marca
+    public function marca()
+    {
+        return $this->belongsTo(Marca::class);
+    }
 }

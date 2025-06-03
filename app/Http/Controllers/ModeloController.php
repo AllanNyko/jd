@@ -19,11 +19,11 @@ class ModeloController extends Controller
   {
     $modelo = new Modelo();
     $modelo->nome = $request->input('nome');
-    $modelo->marca = $request->input('marca'); // Adicionando a marca_id
+    $modelo->marca_id = $request->input('marca_id'); // Corrigido para marca_id
 
     $modelo->save();
 
-    return redirect()->route('modelos.index')->with('success', 'Modelo creado exitosamente.');
+    return redirect()->route('modelos.index')->with('success', 'Modelo criado com sucesso.');
   }
 
 
@@ -31,6 +31,7 @@ class ModeloController extends Controller
   {
     $modelo = Modelo::findOrFail($id);
     $modelo->nome = $request->input('nome');
+    $modelo->marca_id = $request->input('marca_id');
 
 
     $modelo->save();
