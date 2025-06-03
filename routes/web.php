@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (Auth::check()) {
-        return redirect()->route('dashboard');
+        return view('welcome');
     }
     return redirect()->route('login');
 });
+
+ 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
